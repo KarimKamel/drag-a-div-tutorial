@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #moveable-div {
+      background-color: rgb(232, 232, 247);
+      width: 700px;
+      height: 500px;
+      text-align: center;
+      padding-bottom: 1rem;
+      font-family: arial;
+      box-shadow: 2px 2px 2px 2px grey;
+      position: absolute;
+      border-radius: 10px;
+      overflow: hidden;
+      font-weight: 700;
+      border: 1px solid grey;
+      font-size: 3rem;
+    }
+    #moveable-div-header {
+      background-color: rgb(23, 23, 122);
+      padding: 1rem 0;
+      color: white;
+      font-weight: 900;
+      cursor: move;
+      text-shadow: 2px 2px 2px rgb(53, 52, 52);
+    }
+  </style>
+  <body>
+    <div id="moveable-div">
+      <div id="moveable-div-header">Moveable Div Header</div>
+      <p>Drag and Drop</p>
+      <p>To move</p>
+      <p>This Div</p>
+    </div>
+    <script>
+      const moveableDivHeader = document.querySelector("#moveable-div-header");
+      const moveableDiv = document.querySelector("#moveable-div");
+      let isClicked = false;
+      moveableDivHeader.addEventListener("mousedown", onMouseDown);
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mousemove", onMouseMove);
+      function onMouseDown(event) {
+        isClicked = true;
+        console.log("moveable div header has been clicked");
+      }
+      function onMouseUp(event) {
+        isClicked = false;
+        console.log("mouse button released");
+      }
+
+      function onMouseMove(event) {
+        if (isClicked) {
+          let coordsX = window.getComputedStyle(moveableDiv).left;
+          let coordsY = window.getComputedStyle(moveableDiv).top;
+          console.log(parseInt(coordsX), parseInt(coordsY));
+          let movementX = event.movementX;
+          let movementY = event.movementY;
+          console.log(movementX, movementY);
+          let newX = parseInt(coordsX) + movementX;
+          let newY = parseInt(coordsY) + movementY;
+          moveableDiv.style.top = newY + "px";
+          moveableDiv.style.left = newX + "px";
+        }
+      }
+    </script>
+  </body>
+</html>
